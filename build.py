@@ -26,8 +26,8 @@ PAGE_DIR = ''          # そのページがどのフォルダにあるか（'' �
 # ふだんは手元のファイル（file://）で開くので ?v=ハッシュ は付けない。
 # 公開用にビルドするときだけ CACHE_BUST=1 python3 build.py とする。
 CACHE_BUST = os.environ.get('CACHE_BUST') == '1'
-# 問い合わせ先。本名の入らない、このサイト専用のアドレスに差し替えてください。
-CONTACT = 'manabi.tane.study@gmail.com'
+# 問い合わせ先。公開ページに出るので、変えるときはここだけ直せば全ページに反映される。
+CONTACT = 'kokitezuka1@gmail.com'
 
 # 収録順（時代順）。ここに無い id は末尾に並ぶ。
 ORDER = [
