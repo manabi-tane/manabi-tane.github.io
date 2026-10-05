@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>学びのたね</title>
+<style>
+:root{--bg:#F7F4EE;--ink:#1F2328;--ink-2:#55636D;--line:#B9B0A2;--field:#FFFFFF;--accent:#7D4A73;--on-accent:#FFFFFF;--err:#A0302A}
+@media (prefers-color-scheme:dark){:root{--bg:#15181C;--ink:#E8E4DC;--ink-2:#909DA7;--line:#4A525C;--field:#1E2227;--accent:#D699CA;--on-accent:#15181C;--err:#F08A80}}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic",sans-serif}
+main{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:24px 16px;box-sizing:border-box}
+form{width:100%;max-width:320px}
+h1{font-size:22px;font-weight:600;margin:0 0 8px;letter-spacing:.04em}
+p{margin:0 0 20px;color:var(--ink-2);font-size:14px;line-height:1.7}
+label{display:block;font-size:13px;margin-bottom:6px}
+input[type=password]{width:100%;box-sizing:border-box;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--field);color:var(--ink)}
+.rm{display:flex;gap:8px;align-items:center;margin:14px 0 0;color:var(--ink-2)}
+.rm input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
+button{margin-top:16px;width:100%;font:inherit;font-size:15px;font-weight:600;padding:11px 12px;border:0;border-radius:8px;background:var(--accent);color:var(--on-accent);cursor:pointer}
+button:disabled{opacity:.6;cursor:progress}
+input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#msg{min-height:1.5em;margin-top:12px;font-size:13px;line-height:1.5}
+#msg.err{color:var(--err)}
+</style>
+</head>
+<body>
+<main>
+<form id="gate" hidden>
+  <h1>学びのたね</h1>
+  <p>このサイトは鍵がかかっています。パスワードを入れると開きます。</p>
+  <label for="pw">パスワード</label>
+  <input id="pw" type="password" autocomplete="current-password" required>
+  <label class="rm"><input id="rm" type="checkbox" checked>この端末で覚えておく</label>
+  <button id="go" type="submit">開く</button>
+  <div id="msg" role="status" aria-live="polite"></div>
+</form>
+<noscript><p>表示には JavaScript が必要です。</p></noscript>
+</main>
+<script>
+(function () {
+  // ページのスクリプトは W・S・V などをグローバルに宣言するので、ここでは何も外に出さない。
+  var D = {"s":"RWYuFhV/kUJQ0ng5QcPlUA==","i":600000,"v":"oPLBMxm+MKnXk4/G","c":"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"};
+  var SK = 'manabi:key';
+  var form = document.getElementById('gate'), pw = document.getElementById('pw'),
+      rm = document.getElementById('rm'), go = document.getElementById('go'), msg = document.getElementById('msg');
+
+  function bytes(s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+  function b64(u) { var s = ''; for (var i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s); }
+  function say(t, err) { msg.textContent = t; msg.className = err ? 'err' : ''; }
+
+  function stored() {
+    try {
+      var v = localStorage.getItem(SK) || sessionStorage.getItem(SK);
+      var o = v && JSON.parse(v);
+      return o && o.s === D.s ? bytes(o.k) : null;   // 鍵を作り直したら古い記録は使わない
+    } catch (e) { return null; }
+  }
+  function forget() { try { localStorage.removeItem(SK); } catch (e) {} try { sessionStorage.removeItem(SK); } catch (e) {} }
+  function keep(raw, remember) {
+    forget();
+    try { (remember ? localStorage : sessionStorage).setItem(SK, JSON.stringify({ s: D.s, k: b64(raw) })); } catch (e) {}
+  }
+
+  async function unseal(raw) {
+    var k = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+    var buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes(D.v) }, k, bytes(D.c));
+    return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+  }
+  async function derive(pass) {
+    var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveBits']);
+    var bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: bytes(D.s), iterations: D.i }, base, 256);
+    return new Uint8Array(bits);
+  }
+  function show(html) { document.open(); document.write(html); document.close(); }
+  function ask() { form.hidden = false; pw.focus(); }
+
+  if (location.hash === '#logout') { forget(); history.replaceState(null, '', location.pathname + location.search); }
+  if (!window.crypto || !crypto.subtle || typeof DecompressionStream === 'undefined') {
+    form.hidden = false; form.querySelectorAll('input,button').forEach(function (e) { e.disabled = true; });
+    say('このブラウザでは開けません。Safari・Chrome・Edge の新しい版で開いてください。', true);
+    return;
+  }
+
+  var raw = stored();
+  if (raw) unseal(raw).then(show, function () { forget(); ask(); });
+  else ask();
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    go.disabled = true; say('確認しています…');
+    try {
+      var k = await derive(pw.value);
+      var html = await unseal(k);           // パスワードが違えばここで失敗する
+      keep(k, rm.checked);
+      show(html);
+    } catch (err) {
+      go.disabled = false; pw.select();
+      say('パスワードが違います。', true);
+    }
+  });
+})();
+</script>
+</body>
+</html>

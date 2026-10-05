@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>学びのたね</title>
+<style>
+:root{--bg:#F7F4EE;--ink:#1F2328;--ink-2:#55636D;--line:#B9B0A2;--field:#FFFFFF;--accent:#7D4A73;--on-accent:#FFFFFF;--err:#A0302A}
+@media (prefers-color-scheme:dark){:root{--bg:#15181C;--ink:#E8E4DC;--ink-2:#909DA7;--line:#4A525C;--field:#1E2227;--accent:#D699CA;--on-accent:#15181C;--err:#F08A80}}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic",sans-serif}
+main{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:24px 16px;box-sizing:border-box}
+form{width:100%;max-width:320px}
+h1{font-size:22px;font-weight:600;margin:0 0 8px;letter-spacing:.04em}
+p{margin:0 0 20px;color:var(--ink-2);font-size:14px;line-height:1.7}
+label{display:block;font-size:13px;margin-bottom:6px}
+input[type=password]{width:100%;box-sizing:border-box;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--field);color:var(--ink)}
+.rm{display:flex;gap:8px;align-items:center;margin:14px 0 0;color:var(--ink-2)}
+.rm input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
+button{margin-top:16px;width:100%;font:inherit;font-size:15px;font-weight:600;padding:11px 12px;border:0;border-radius:8px;background:var(--accent);color:var(--on-accent);cursor:pointer}
+button:disabled{opacity:.6;cursor:progress}
+input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#msg{min-height:1.5em;margin-top:12px;font-size:13px;line-height:1.5}
+#msg.err{color:var(--err)}
+</style>
+</head>
+<body>
+<main>
+<form id="gate" hidden>
+  <h1>学びのたね</h1>
+  <p>このサイトは鍵がかかっています。パスワードを入れると開きます。</p>
+  <label for="pw">パスワード</label>
+  <input id="pw" type="password" autocomplete="current-password" required>
+  <label class="rm"><input id="rm" type="checkbox" checked>この端末で覚えておく</label>
+  <button id="go" type="submit">開く</button>
+  <div id="msg" role="status" aria-live="polite"></div>
+</form>
+<noscript><p>表示には JavaScript が必要です。</p></noscript>
+</main>
+<script>
+(function () {
+  // ページのスクリプトは W・S・V などをグローバルに宣言するので、ここでは何も外に出さない。
+  var D = {"s":"RWYuFhV/kUJQ0ng5QcPlUA==","i":600000,"v":"wp8OPGjCpS8xRaij","c":"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"};
+  var SK = 'manabi:key';
+  var form = document.getElementById('gate'), pw = document.getElementById('pw'),
+      rm = document.getElementById('rm'), go = document.getElementById('go'), msg = document.getElementById('msg');
+
+  function bytes(s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+  function b64(u) { var s = ''; for (var i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s); }
+  function say(t, err) { msg.textContent = t; msg.className = err ? 'err' : ''; }
+
+  function stored() {
+    try {
+      var v = localStorage.getItem(SK) || sessionStorage.getItem(SK);
+      var o = v && JSON.parse(v);
+      return o && o.s === D.s ? bytes(o.k) : null;   // 鍵を作り直したら古い記録は使わない
+    } catch (e) { return null; }
+  }
+  function forget() { try { localStorage.removeItem(SK); } catch (e) {} try { sessionStorage.removeItem(SK); } catch (e) {} }
+  function keep(raw, remember) {
+    forget();
+    try { (remember ? localStorage : sessionStorage).setItem(SK, JSON.stringify({ s: D.s, k: b64(raw) })); } catch (e) {}
+  }
+
+  async function unseal(raw) {
+    var k = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+    var buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes(D.v) }, k, bytes(D.c));
+    return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+  }
+  async function derive(pass) {
+    var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveBits']);
+    var bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: bytes(D.s), iterations: D.i }, base, 256);
+    return new Uint8Array(bits);
+  }
+  function show(html) { document.open(); document.write(html); document.close(); }
+  function ask() { form.hidden = false; pw.focus(); }
+
+  if (location.hash === '#logout') { forget(); history.replaceState(null, '', location.pathname + location.search); }
+  if (!window.crypto || !crypto.subtle || typeof DecompressionStream === 'undefined') {
+    form.hidden = false; form.querySelectorAll('input,button').forEach(function (e) { e.disabled = true; });
+    say('このブラウザでは開けません。Safari・Chrome・Edge の新しい版で開いてください。', true);
+    return;
+  }
+
+  var raw = stored();
+  if (raw) unseal(raw).then(show, function () { forget(); ask(); });
+  else ask();
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    go.disabled = true; say('確認しています…');
+    try {
+      var k = await derive(pw.value);
+      var html = await unseal(k);           // パスワードが違えばここで失敗する
+      keep(k, rm.checked);
+      show(html);
+    } catch (err) {
+      go.disabled = false; pw.select();
+      say('パスワードが違います。', true);
+    }
+  });
+})();
+</script>
+</body>
+</html>
