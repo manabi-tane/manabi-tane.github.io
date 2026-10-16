@@ -45,7 +45,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline
   var D = {"s":"RWYuFhV/kUJQ0ng5QcPlUA==","i":600000,"v":"BEUVbsqsdosQRR/5","c":"9RTmvCGVw4w3Mg3fZZ4vuJCg4kjmLIQasvhnrad1MXfy45QLIZLAJQ0wSi8u++CSzVmgTxY2sy82CClanD+BHpxlGsUYdEO2EPoVlni6Fmqn25y/DJjPSgHSsqMHyKYZ4sNS/S3EIBiVdy25i6ie0ZWpcWxUBMO11PvdTro6bdIUfgDDf9mNtGcPQLi+vylcw2sMBYMv9OqOPPNp2CYgICTI713sg1rAGsVJeGRAzGHwH5GvMKR86VIkvxHAicdtKMhOkoPx1Z3lxAjQ4fcsSZmZEXC9e6VOHJgTWKDI+kqW8AEdqK1u1VgkSv71XIkxEZNwzstDrskRFNVnY03ysfX9icPocKMp8bN6xba2dUlX48ABypYHs4oK7MH+mouS7WOjJJ2ik2S5VMSO4CJthc7xwsNClh8Q+HcpWaJpnASE1whgoRs4yixh/JN3st+Yh4WjI6oXelXgI+oq5/pIKNHcsa1IHiG6"};
   var SK = 'manabi:key';
   // アクセス数（GoatCounter）。送るのはページの場所だけで、題名や中身は送らない。空なら数えない。
-  var GC = '';
+  var GC = 'https://manabi-tane1.goatcounter.com/count';
   function count(p, event) {
     if (!GC) return;
     var u = GC + '?p=' + encodeURIComponent(p) + (event ? '&e=true' : '') + '&rnd=' + Math.random().toString(36).slice(2);
