@@ -147,7 +147,8 @@ body:has(.session) .backnav { display: none; }   /* めくっている間は全�
 .session .prog { margin: 0 20px 6px; height: 4px; border-radius: 4px; background: var(--fill); overflow: hidden; }
 .session .prog > i { display: block; height: 100%; background: var(--sage); transition: width .4s var(--ease); }
 .stage { flex: 1; overflow-y: auto; display: flex; justify-content: center; align-items: flex-start; padding: 14px 16px 16px; }
-.stack { position: relative; width: 100%; max-width: 720px; margin: auto 0; }
+/* カードは上に寄せる。真ん中に置くと、答えが出て背が伸びたときに単語が上へずれて目が追いかけることになる */
+.stack { position: relative; width: 100%; max-width: 720px; margin: clamp(0px, 6vh, 56px) 0 auto; }
 .stack .behind { position: absolute; left: 0; right: 0; top: 0; bottom: 0; border-radius: 26px; background: var(--glass); box-shadow: var(--shadow); }
 .stack .behind.b1 { transform: translateY(10px) scale(.96); opacity: .55; }
 .stack .behind.b2 { transform: translateY(20px) scale(.92); opacity: .3; }
@@ -183,6 +184,27 @@ body:has(.session) .backnav { display: none; }   /* めくっている間は全�
 .grade.again b { color: var(--red); }
 .grade.good b { color: var(--sage); }
 .grade kbd { font: 10px ui-monospace, monospace; color: var(--label3); }
+/* スペルを打つ */
+.modes { display: inline-flex; padding: 3px; border-radius: 999px; gap: 2px; }
+.modes button { border: 0; background: transparent; border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 650; color: var(--label2); }
+.modes button[aria-pressed="true"] { background: var(--sage); color: #fff; }
+.front.meaning { text-align: center; font-size: 22px; font-weight: 600; padding: 10px 0 0; }
+.spellhint { margin-top: 8px; text-align: center; color: var(--label3); font: 15px ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .18em; }
+.spell { display: block; width: 100%; margin-top: 18px; padding: 12px 14px; border: 0; border-radius: 14px; text-align: center;
+  font: 600 26px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; letter-spacing: .02em; color: var(--label);
+  background: var(--fill); box-shadow: inset 0 0 0 1.5px var(--hair); transition: box-shadow .3s var(--ease), background .3s var(--ease); }
+.spell:focus { outline: none; box-shadow: inset 0 0 0 2px var(--sage); }
+.spell.ok { background: rgba(78,154,107,.13); box-shadow: inset 0 0 0 1.5px var(--green); }
+.spell.ng { background: rgba(194,94,104,.10); box-shadow: inset 0 0 0 1.5px var(--red); }
+.verdict { font-size: 13px; font-weight: 650; }
+.verdict.ok { color: var(--green); }
+.verdict.ng { color: var(--red); }
+.answer .a.word { font-size: 26px; letter-spacing: .01em; }
+.answer .a.word mark { background: rgba(194,94,104,.18); color: inherit; border-radius: 3px; }
+.answer .mean { margin-top: 4px; }
+.spellbtns { width: 100%; max-width: 720px; display: grid; grid-template-columns: 1fr 2fr; gap: 8px; }
+.spellbtns .reveal { max-width: none; }
+.grade.suggest { background: var(--fill); box-shadow: inset 0 0 0 1.5px var(--hair); }
 .center { margin: auto; width: 100%; max-width: 440px; text-align: center; padding: 24px; }
 .center h2 { font-size: 19px; margin: 12px 0 4px; }
 .center p { color: var(--label2); font-size: 13px; margin: 0; }
