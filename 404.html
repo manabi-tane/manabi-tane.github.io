@@ -6,12 +6,12 @@
 <meta name="robots" content="noindex, nofollow">
 <title>学びのたね</title>
 <style>
-:root{--bg:#F7F4EE;--ink:#1F2328;--ink-2:#55636D;--line:#B9B0A2;--field:#FFFFFF;--accent:#7D4A73;--on-accent:#FFFFFF;--err:#A0302A}
-@media (prefers-color-scheme:dark){:root{--bg:#15181C;--ink:#E8E4DC;--ink-2:#909DA7;--line:#4A525C;--field:#1E2227;--accent:#D699CA;--on-accent:#15181C;--err:#F08A80}}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic",sans-serif}
+:root{--bg:#EEF1F3;--ink:#1F2328;--ink-2:#55636D;--line:#7C8A94;--field:#FFFFFF;--accent:#7D4A73;--on-accent:#FFFFFF;--err:#A0302A}
+@media (prefers-color-scheme:dark){:root{--bg:#13171B;--ink:#E8E4DC;--ink-2:#909DA7;--line:#6B7782;--field:#1E2227;--accent:#D699CA;--on-accent:#15181C;--err:#F08A80}}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Noto Sans JP",sans-serif}
 main{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:24px 16px;box-sizing:border-box}
 form{width:100%;max-width:320px}
-h1{font-size:22px;font-weight:600;margin:0 0 8px;letter-spacing:.04em}
+h1{font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP","Noto Serif CJK JP",serif;font-size:26px;font-weight:600;margin:0 0 10px;letter-spacing:.1em}
 p{margin:0 0 20px;color:var(--ink-2);font-size:14px;line-height:1.7}
 label{display:block;font-size:13px;margin-bottom:6px}
 input[type=password]{width:100%;box-sizing:border-box;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--field);color:var(--ink)}
@@ -42,7 +42,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline
 <script>
 (function () {
   // ページのスクリプトは W・S・V などをグローバルに宣言するので、ここでは何も外に出さない。
-  var D = {"s":"RWYuFhV/kUJQ0ng5QcPlUA==","i":600000,"v":"U9GqOaU00Ec3gte/","c":"yhM1ZFOD9KJzgIjkitpD4VqBYas0b+VekzZfg1NCRcwsAxf955d71nvwvajN2r+Ad6NQ1bT2MAQBJCTT6GKWAyL2utkopYHGkA1MEjIpbWzgm5AFQk69Sz2uJBpvUnxakjpfSz2pR04ICGcwRSX74V7uCS3t/bgOj6R+tgpjw5Y2ekgzizC8ds889uLxz6798eAKoI367viVTPQHmrTfGYk0zeYB7UcjwfH2yeTJoUQKFwcbLmYHaVo6rQvHHu+69ZNsieAy+rZ222xWRnI4CR+kjI3ADJXi6mjGG9lWShQW5NCWA3/MIVG10CUe2LDvMr97Som+XAH9rpMmi+YdG6997/7ATyZQg4LF8WVoNJbOo2D1O04BjjYphNLIba/1WvUzU93q4mTdwV6JdNVIz4gByUQ20iebfPvm/o1j7d0zUKBGUgiB35ZvD0CaXkFuhtmKsU/4/FEHNb5PDEqnMtd/piZwSugn5cxHYGyQHPE/ejJbMQb2HR+SolFtLj1+m2ctcbx/Qn8tSh/kibY/DQjlqqesKEJOofdFtsJP6iw4YkeMESqdHiQ63xXsu1ayMxd8+pYGhJxIMjf2XsB5mt0YfnS+kdBlhqNbACw7EwScau+Rqs541qMUILTB6CI63nmGYx7h3PmJYc1ixPnpqbjV9oAtfvM5HNmA/2j/sAIjZVEozEHFkAf2JSrnZ8WiGluByT4ewzmD8g6cIvu8y91yvhaMq7wdlGENFOWTW4t7MRvAtcC1gyYvhJupBDt9clp6c6jx57N+qzFj5szgQIKw8hulL2bIkN1IkHbCUuYpi/PU7LV2On0Br3QHbhr2ElbqJcYv/ofhRIDCPJRcO5OvivOO+cksi46q762AbsjT2K3CG3d1XiyQPmQ/zg10c1wOYnkylvPioKJYDTsrbpQCjgYX8RVgUbGpoy3FITS2yOQeHJYRbHq8zdxsAQpMtdYTCm3bioFsTl5sr5hVdeS3Vcf/dwzF44d05GuUhpinwecwzSw63Ob8NHpTpKbcL7MGlE/XAgpFB84Q8A7fAES/g+BhovH7Nh432/UuO7tJvrwK64EWec0jLu6GefblPq5w7heNoPXGMkMf2VcJ+WZvjzh9lhORf/0s7JxzyhsyQwE/8SW4fapOLzznYiczeQeiMJpzl80ZM9zQ26rVYlxJXF7Vzf1XYmwqAEoqyVddJSuNI26bpJlk3eEfhTgbumI+YfLdWsp8snfeCtt30ljzT1r/QBRLZIoSjOvCctM2fUOFAGmJqtwndp5r8LnZ/G9air+0X9uvwZuNUCjElZ6x4cVuEEXsro4ypDy8wraF5gTzL28IPbfluzhKihuZaq9MQinbS3IT9x+MlQobAYPAfRQo"};
+  var D = {"s":"RWYuFhV/kUJQ0ng5QcPlUA==","i":600000,"v":"Yo3OIONQHwxPvFZC","c":"YCWC37QwhqnhHPCIcim6UCtttD9wm4rQXvUi97HMQ1P5LHsdyJQPre3hd6rXvJOzxfbTEvIF2f4TDyTmGpU4ES1pn326irZPFJ09LoaId5I4+Qs97lJiL40XApmqztib4xZrYQBK78BZ/2TRXPa5bN/vG6/Or1ENLAVIPBSOwok/OPUhm+1IVIvsGoo+kBmmKw9LATSbCQKFna1zz6iVvPj928gtWBiOpb9Ja+XwUo0j5IQBS3UE85/xwocKYbja8XpzGPkkZPCf1nDH2+nX47/1jB7H3Y9VfGHDQIRmVT8iMm9ykLE4hbKmH6w/tpNVqryS1MVE82QlANdQ0gFmw+Wefx67HZQLD0q2Qrz2CbGJ/ews0sOVLOtU1oftGflZh/bOlNrsekzxBHu7WXpPsvbrVDwBV4bIRa1zpcsioRlx7LblsgSm0rkLiw8CQBJB4NW0hHiaebaznxSL/mw3JqfZkWdIAvSOaEYJa41mnQjLF6ExGFsj4HHn7W+HUt9Y1Gah5dDB4r4HoZud8NX7K+7pcftu4n0Vd5jygqX5fTibCButK/j+ezd8bPS6krB2h7IpH5PCqpFmRq7SjuaeOXe7Ew4O2sXUAL6ZgHUfcVvD00iaWpr2qJssyoJkNKgn+OxEFl0IQ7Lpkohl2genGae3O7EVXKO0lsOPlq6HIDnCY/ck8kuwNdjx+90tUZOTxqDb7Ts8ZdHegg724rTw2Y6JnpPR5w/vlEYjHVzx5POlVomtQUchXIl7INW81ZPjMSmNb1OEPc0LR7q8loknW7kjXmtBloPh11l9qKg3oaBNuWyfG4m38hWB7pDf4bkNnwDilN5Pfzn3nqDFOgbhUkmMDQZD8VoX8HciHS8AFOJNceF7QtpnhArFIJqAyP2/ecbIuGmjG5BNLt0sUgkJwLFDtd7njOO6QJU2V9liv5ldFe1wD5yI/lpM1WknfFgPkC9+KhQDq3Mv94KmohgNv6bBMy+ZLbLh/c9uGHNQCwnkkKnnEsWF+FCNaMWUh+ly3t4cCGbl7jCWrHmaDz8AGB7wq1g1FKLZ9f/19FJTA3VelYdzZRmUQ5H4cGrmDVNBLBUOsXfQlDMXmhVPAGVswCyueyC7k54/M/sx6/OifhTG7ZKBBWxDB4rgZVTqlBZPf0F/Osjq6aNx9LKvi1rCPGJxDfVvI8CIrHrBsSRda2nwtDInj0I12GESnTsQw3RPZyIf84mvjqlUqz/tlDf+P/zrMmwih+er9QN+9FmqYuuNH1YrhMMiNPz3o+IUXCmPRE0uimKxhq+x9Nh6a+yba/06jxMzPTAiTuLvUVaQpGXLT0lNGdzEfkxB3Yi/iKYJBuF59wrrL2k78w=="};
   var SK = 'manabi:key';
   // アクセス数（GoatCounter）。送るのはページの場所だけで、題名や中身は送らない。空なら数えない。
   var GC = 'https://manabi-tane1.goatcounter.com/count';

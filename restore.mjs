@@ -1,7 +1,6 @@
 // このリポジトリからソース一式（教材データを含む）を取り出す。
 //   node restore.mjs [出力先]        （既定は ./source）
 // パスワードは環境変数 SITE_PASSWORD か、聞かれたときに入力する。
-// 書体はサイト側の assets/fonts をそのまま写す。
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -36,5 +35,7 @@ if (fs.existsSync(dest) && fs.readdirSync(dest).length) {
 }
 fs.mkdirSync(dest, { recursive: true });
 execFileSync('tar', ['-xzf', '-', '-C', dest], { input: tgz });
-fs.cpSync(path.join(here, 'assets', 'fonts'), path.join(dest, 'assets', 'fonts'), { recursive: true });
+// 以前の版は書体をサイト側に置いていた。残っていれば写す（今は端末の書体を使うので無くてよい）
+if (fs.existsSync(path.join(here, 'assets', 'fonts')))
+  fs.cpSync(path.join(here, 'assets', 'fonts'), path.join(dest, 'assets', 'fonts'), { recursive: true });
 console.log('取り出しました: ' + dest);
