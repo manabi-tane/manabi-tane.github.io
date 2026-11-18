@@ -768,6 +768,8 @@ body[data-pan="on"] #scroll{cursor:grab}
   width:13px; height:13px; border-radius:3px; display:inline-block;
   box-shadow:0 0 0 1px rgba(128,128,128,.45) inset;
 }
+.pd-presets .pd-seg button{padding:7px 13px; font-size:12px}
+.pd-sub{margin:-2px 0 12px; padding:8px 11px; border-radius:8px; background:var(--accent-soft); color:var(--ink-2); font-size:11.5px; line-height:1.7}
 .pd-checks{list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:8px}
 .pd-checks label{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-2); cursor:pointer}
 .pd-note{
@@ -796,6 +798,7 @@ body[data-pan="on"] #scroll{cursor:grab}
 }
 #printroot .pp{
   box-sizing:border-box; break-after:page; page-break-after:always;
+  overflow:hidden;                   /* 紙面からはみ出した見えない部分が、空白のページを作らないように */
   background:var(--pbg,#fff); color:var(--pink,#111);
 }
 #printroot .pp:last-child{break-after:auto; page-break-after:auto}
@@ -818,6 +821,8 @@ body[data-pan="on"] #scroll{cursor:grab}
   font-size:.78em; color:var(--pink,#111); opacity:.85; border-block-start:.4pt dotted #999;
   padding-block-start:1.5mm; margin-inline-end:1.5mm;
 }
+#printroot .phakumain{margin-inline-end:1.5mm}
+#printroot .phaku.c,#printroot .pyaku.c,#printroot .phakumain{border:0; padding:0; margin:0}
 #printroot .pyaku{
   font-size:.72em; color:var(--pink,#111); opacity:.72; border-block-start:.4pt dashed #aaa;
   padding-block-start:1.5mm; margin-inline-end:1.5mm; line-height:1.8;
