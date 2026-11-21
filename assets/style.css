@@ -1323,3 +1323,40 @@ body.en .brand h1{letter-spacing:.02em; overflow:hidden; text-overflow:ellipsis}
   .yk-topbtns{align-self:stretch}
   .yk-topbtns .yk-btn{flex:1}
 }
+
+/* ── ご意見を送る（トップページの下） ───────────── */
+.fb-box p{margin:0 0 12px; font-size:13.5px; color:var(--ink-2); line-height:1.8}
+.fb-open{min-height:44px; padding:0 22px; border:1px solid var(--accent); border-radius:10px; background:var(--accent); color:#fff;
+  font:inherit; font-size:14px; font-weight:600; cursor:pointer}
+.fb-open:hover{filter:brightness(1.08)}
+.fb-dlg{width:min(560px,calc(100vw - 24px)); max-height:92dvh; padding:0; border:1px solid var(--rule); border-radius:16px;
+  background:var(--paper-3); color:var(--ink); box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.fb-dlg::backdrop{background:rgba(0,0,0,.4)}
+.fb-form{padding:20px 20px calc(18px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:12px}
+.fb-form h2{margin:0; font-family:var(--mincho); font-size:19px; letter-spacing:.08em}
+.fb-note{margin:0; font-size:13px; line-height:1.8; color:var(--ink-2)}
+.fb-kinds{border:0; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px}
+.fb-kinds legend{font-size:12px; color:var(--ink-3); padding:0 0 6px}
+.fb-kinds label{position:relative}
+.fb-kinds input{position:absolute; opacity:0; inset:0; cursor:pointer}
+.fb-kinds span{display:inline-block; min-height:36px; line-height:34px; padding:0 13px; border:1px solid var(--rule); border-radius:999px;
+  background:var(--paper); font-size:13px}
+.fb-kinds input:checked+span{background:var(--accent); border-color:var(--accent); color:#fff}
+.fb-kinds input:focus-visible+span{outline:2px solid var(--accent); outline-offset:2px}
+.fb-text{display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--ink-3)}
+.fb-text textarea{padding:10px 12px; border:1px solid var(--rule); border-radius:10px; background:var(--paper); color:var(--ink);
+  font:inherit; font-size:16px; line-height:1.7; resize:vertical; min-height:120px}
+.fb-hp{position:absolute; left:-9999px; width:1px; height:1px; opacity:0}
+.fb-chk{display:flex; gap:8px; align-items:flex-start; font-size:12.5px; color:var(--ink-2); line-height:1.6}
+.fb-chk input{margin-block-start:4px}
+.fb-state{margin:0; min-height:1.4em; font-size:13px; color:var(--ink-2); line-height:1.6}
+.fb-state.ok{color:#1F7A44} .fb-state.bad{color:#B3261E}
+.fb-actions{display:flex; gap:10px; justify-content:flex-end}
+.fb-btn{min-height:44px; padding:0 22px; border:1px solid var(--accent); border-radius:10px; background:var(--accent); color:#fff;
+  font:inherit; font-size:14px; font-weight:600; cursor:pointer}
+.fb-btn.ghost{background:var(--paper-3); color:var(--ink); border-color:var(--rule)}
+.fb-btn:disabled{opacity:.5; cursor:default}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .fb-state.ok{color:#7BD39B} :root:not([data-theme="light"]) .fb-state.bad{color:#FF8A80} }
+@media (max-width:600px){ .fb-actions .fb-btn{flex:1} }
+.yk-topbtns{flex-wrap:wrap}
+@media (max-width:600px){ .yk-bar .yk-back{width:36px} }
