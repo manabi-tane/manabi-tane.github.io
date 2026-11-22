@@ -1360,3 +1360,19 @@ body.en .brand h1{letter-spacing:.02em; overflow:hidden; text-overflow:ellipsis}
 @media (max-width:600px){ .fb-actions .fb-btn{flex:1} }
 .yk-topbtns{flex-wrap:wrap}
 @media (max-width:600px){ .yk-bar .yk-back{width:36px} }
+
+/* ── ホーム: アカウント・あなたの続き ───────────── */
+.hero{position:relative}
+.acct{position:absolute; top:12px; right:0}
+@media (max-width:600px){ .acct{position:static; margin-block-end:10px} }
+.mine h2{margin-block-end:10px}
+.mine-list{display:grid; gap:10px; grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.mine-item{display:flex; align-items:center; gap:12px; min-height:60px; padding:10px 14px; border:1px solid var(--rule); border-radius:12px;
+  background:var(--paper-3); color:var(--ink); text-decoration:none}
+.mine-item:hover{background:var(--hover)}
+.mine-big{flex:none; min-width:3.6em; font-family:var(--mincho); font-weight:700; font-size:17px; color:var(--accent)}
+.mine-big:empty{display:none}
+.mine-t{flex:1; min-width:0; display:flex; flex-direction:column}
+.mine-t b{font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.mine-t span{font-size:12px; color:var(--ink-3)}
+.mine-go{color:var(--ink-3); font-size:20px}
