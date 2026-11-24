@@ -1,0 +1,180 @@
+/* Focus Gold の例題を解く画面（focusgold/index.html・assets/fg.js）。色はサイト全体（style.css）と同じ。 */
+:root{
+  --paper:#EEF1F3; --paper-2:#E4E9EC; --paper-3:#F8FAFB; --paper-4:#DCE3E7;
+  --ink:#1C2229; --ink-2:#4A555F; --ink-3:#55636D;
+  --rule:#C9D4DA; --rule-2:#DCE4E8;
+  --accent:#7D4A73; --accent-soft:rgba(125,74,115,.13); --accent-line:rgba(125,74,115,.45); --on-accent:#fff;
+  --hint:#8A6230; --hint-bg:rgba(138,98,48,.09);
+  --l1:#C9A2BF; --l2:#D9B26A; --l3:#6FA586; --l4:#2F6A4A;
+  --red:#B03A50;
+  --mincho:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP","Noto Serif CJK JP",serif;
+  --gothic:system-ui,-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo","Noto Sans JP",sans-serif;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#13171B; --paper-2:#1B2126; --paper-3:#222930; --paper-4:#2A323A;
+    --ink:#E7ECF0; --ink-2:#AEBAC3; --ink-3:#909DA7;
+    --rule:#333D45; --rule-2:#283138;
+    --accent:#D699CA; --accent-soft:rgba(214,153,202,.16); --accent-line:rgba(214,153,202,.5); --on-accent:#13171B;
+    --hint:#DDB176; --hint-bg:rgba(221,177,118,.10);
+    --l1:#8E5F84; --l2:#9C7B3C; --l3:#4E8A68; --l4:#88C29C;
+    --red:#EA8B9D;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#13171B; --paper-2:#1B2126; --paper-3:#222930; --paper-4:#2A323A;
+  --ink:#E7ECF0; --ink-2:#AEBAC3; --ink-3:#909DA7;
+  --rule:#333D45; --rule-2:#283138;
+  --accent:#D699CA; --accent-soft:rgba(214,153,202,.16); --accent-line:rgba(214,153,202,.5); --on-accent:#13171B;
+  --hint:#DDB176; --hint-bg:rgba(221,177,118,.10);
+  --l1:#8E5F84; --l2:#9C7B3C; --l3:#4E8A68; --l4:#88C29C;
+  --red:#EA8B9D;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--gothic);font-size:16px;line-height:1.75;
+  padding-bottom:max(40px,env(safe-area-inset-bottom))}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+.backnav{max-width:760px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 18px 0;font-size:13px}
+.backnav a{color:var(--ink-3);text-decoration:none}
+body:has(.fg-crumb) .backnav{display:none}   /* 章・問題の画面では、上の「← Focus Gold」だけにする */
+#app{max-width:760px;margin:0 auto;padding:0 16px}
+.fg-empty{padding:40px 0;color:var(--ink-2)}
+
+/* 見出し */
+.fg-top{padding:18px 0 6px}
+.fg-kicker{margin:0;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.fg-h1{margin:2px 0 6px;font-family:var(--mincho);font-weight:600;font-size:28px;line-height:1.3}
+.fg-h2,.fg-chaps h2{font-size:14px;letter-spacing:.08em;color:var(--ink-2);margin:26px 0 8px}
+.fg-lede{margin:6px 0 0;color:var(--ink-2);font-size:14.5px}
+.fg-note{font-size:14px;color:var(--ink-2);margin:14px 0 0}
+.fg-foot{font-size:12.5px;color:var(--ink-3);margin:34px 0 0;line-height:1.7}
+.fg-books{display:flex;gap:6px;margin:8px 0 4px;flex-wrap:wrap}
+.fg-books button{border:1px solid var(--rule);background:var(--paper-3);border-radius:999px;padding:6px 16px;font-size:15px;font-weight:700;cursor:pointer}
+.fg-books button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+
+/* 今日 */
+.fg-today{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:16px}
+.fg-go{display:flex;flex-direction:column;align-items:flex-start;gap:0;text-align:left;border:1px solid var(--rule);background:var(--paper-3);
+  border-radius:14px;padding:12px 16px;cursor:pointer;min-height:72px}
+.fg-go b{font-size:24px;line-height:1.2}
+.fg-go span{font-size:13.5px;color:var(--ink-2)}
+.fg-go.main{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.fg-go.main span{color:inherit;opacity:.9}
+.fg-go:active,.fg-btn:active,.fg-grade:active{transform:scale(.98)}
+
+/* 章 */
+.fg-chap{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"n t s" "b b b";gap:2px 10px;align-items:baseline;
+  padding:11px 14px;margin:0 0 6px;border-radius:12px;background:var(--paper-3);border:1px solid var(--rule-2);color:inherit;text-decoration:none}
+.fg-cn{grid-area:n;font-size:12px;color:var(--ink-3);font-weight:700}
+.fg-ct{grid-area:t;font-weight:700}
+.fg-cs{grid-area:s;font-size:12px;color:var(--ink-3);white-space:nowrap}
+.fg-bar{grid-area:b;display:flex;height:6px;border-radius:3px;background:var(--paper-4);overflow:hidden;margin-top:6px}
+.fg-bar i{display:block;height:100%}
+.fg-bar .l1,.fg-lv.l1,.fg-sq.l1,td.n.l1{background:var(--l1)}
+.fg-bar .l2,.fg-lv.l2,.fg-sq.l2,td.n.l2{background:var(--l2)}
+.fg-bar .l3,.fg-lv.l3,.fg-sq.l3,td.n.l3{background:var(--l3)}
+.fg-bar .l4,.fg-lv.l4,.fg-sq.l4,td.n.l4{background:var(--l4)}
+
+/* 一覧 */
+.fg-crumb{display:flex;justify-content:space-between;align-items:center;padding:14px 0 0;font-size:13.5px}
+.fg-crumb a{color:var(--ink-3);text-decoration:none}
+.fg-pos{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.fg-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.fg-list{border-top:1px solid var(--rule-2)}
+.fg-item{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--rule-2);color:inherit;text-decoration:none;min-height:46px}
+.fg-lv{flex:none;width:12px;height:12px;border-radius:3px;background:var(--paper-4);border:1px solid var(--rule)}
+.fg-lv.l1,.fg-lv.l2,.fg-lv.l3,.fg-lv.l4{border-color:transparent}
+.fg-in{flex:none;font-size:13px;font-weight:700;color:var(--ink-2);min-width:4.6em}
+.fg-it{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fg-due{flex:none;font-size:12px;color:var(--ink-3)}
+.fg-due em{font-style:normal;color:var(--accent);font-weight:700}
+.fg-stars{flex:none;font-size:11px;color:var(--hint);letter-spacing:-.05em}
+.fg-stars i{font-style:normal;opacity:.25}
+.fg-pr{margin-top:22px}
+.fg-pr summary{cursor:pointer;font-size:14px;color:var(--ink-2);padding:6px 0}
+
+/* ボタン */
+.fg-btn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--accent-line);background:var(--paper-3);
+  color:var(--accent);border-radius:12px;padding:10px 18px;font-weight:700;font-size:15px;cursor:pointer;min-height:46px;line-height:1.3}
+.fg-btn small{font-size:11.5px;font-weight:500;opacity:.8}
+.fg-btn.main{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.fg-btn.ghost{background:transparent}
+.fg-btn[hidden]{display:none}
+
+/* 問題を解く */
+.fg-solve{padding:10px 0 0}
+.fg-qh{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:8px 0 10px}
+.fg-tag{font-weight:800;font-size:15px;color:var(--on-accent);background:var(--accent);border-radius:6px;padding:1px 9px}
+.fg-qc{font-size:12.5px;color:var(--ink-3)}
+.fg-title{margin-left:auto;border:1px dashed var(--rule);background:none;border-radius:999px;padding:2px 12px;font-size:12.5px;color:var(--ink-3);cursor:pointer}
+span.fg-title.on{border-style:solid;color:var(--ink);font-weight:700;cursor:default}
+.fg-q{background:var(--paper-3);border:1px solid var(--rule);border-radius:14px;padding:14px 16px;font-size:16.5px}
+.fg-tip{font-size:13px;color:var(--ink-3);margin:12px 0}
+.fg-pdf{font-size:13px;margin:8px 0 0}
+.fg-hints,.fg-ans,.fg-rate,.fg-back{margin-top:18px}
+.fg-hints h3,.fg-ans h3,.fg-rate h3,.fg-back h3{font-size:13px;letter-spacing:.1em;color:var(--ink-2);margin:0 0 8px}
+.fg-hints h3 small{font-weight:500;letter-spacing:0;margin-left:6px}
+.fg-hl{background:var(--hint-bg);border-left:3px solid var(--hint);border-radius:0 10px 10px 0;padding:0 14px}
+.fg-hl:has(.on){padding:10px 14px;margin-bottom:10px}
+.fg-hid{display:none}
+.fg-hid.on{display:block;animation:fgIn .25s ease both}
+@keyframes fgIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.fg-sl{border-left:3px solid var(--accent-line);padding:2px 0 2px 14px}
+.fg-step{margin-top:10px}
+.fg-miss{font-size:14px;color:var(--ink-2)}
+.fg-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.fg-act .fg-btn{flex:1 1 150px}
+.fg-act[hidden]{display:none}
+.fg-rnote{font-size:13px;color:var(--ink-3);margin:-4px 0 8px}
+.fg-grades{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+@media (max-width:520px){.fg-grades{grid-template-columns:repeat(2,1fr)}}
+.fg-grade{display:flex;flex-direction:column;align-items:center;gap:1px;border:1px solid var(--rule);background:var(--paper-3);border-radius:12px;
+  padding:9px 4px;cursor:pointer;min-height:64px;line-height:1.35}
+.fg-grade b{font-size:14.5px}
+.fg-grade span{font-size:11px;color:var(--ink-3)}
+.fg-grade em{font-style:normal;font-size:11.5px;color:var(--ink-2)}
+.fg-grade.g1 b{color:var(--red)}
+.fg-grade.g3 b,.fg-grade.g4 b{color:var(--l4)}
+.fg-grade:disabled{opacity:.35;cursor:default}
+.fg-ft{font-family:var(--mincho);font-size:22px;font-weight:600;margin:0 0 8px}
+
+/* 本文（Markdown＋数式） */
+.fg-b{margin:.5em 0;overflow-wrap:anywhere}
+.fg-math{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:2px 0}
+.fg-dm{display:block;overflow-x:auto;overflow-y:hidden;max-width:100%}
+.fg-dm .katex-display{margin:.35em 0}
+.fg-side{font-size:13.5px;color:var(--ink-2);border-left:2px solid var(--rule);padding-left:10px}
+.fg-head{font-weight:700}
+.fg-focus-h{display:inline-block;margin-top:14px;background:var(--ink);color:var(--paper);font-weight:800;font-size:12.5px;letter-spacing:.06em;border-radius:6px 6px 0 0;padding:1px 10px}
+.fg-focus{display:block;border:1.5px solid var(--ink);border-radius:0 10px 10px 10px;padding:8px 12px;margin-top:0;font-weight:700}
+.fg-back .fg-focus{border-radius:10px}
+.fg-tbl{overflow-x:auto}
+.fg-tbl table{border-collapse:collapse;font-size:14px}
+.fg-tbl th,.fg-tbl td{border:1px solid var(--rule);padding:3px 8px;text-align:center}
+.fg-fig{display:inline-flex;align-items:baseline;gap:8px;border:1px dashed var(--rule);border-radius:8px;padding:2px 10px;font-size:13px;color:var(--ink-2);text-decoration:none;margin:2px 0}
+a.fg-fig small{color:var(--accent);font-weight:700}
+.katex{font-size:1.06em}
+
+/* 習熟の表 */
+.fg-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--ink-2);margin:14px 0}
+.fg-legend span{display:inline-flex;align-items:center;gap:5px}
+.fg-mtbl{overflow-x:auto;margin:0 -4px}
+.fg-mtbl table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.fg-mtbl th,.fg-mtbl td{padding:6px 6px;border-bottom:1px solid var(--rule-2);text-align:center;white-space:nowrap}
+.fg-mtbl thead th{font-size:11px;color:var(--ink-3);font-weight:600}
+.fg-mtbl tbody th{text-align:left;font-weight:600;white-space:normal;line-height:1.4}
+.fg-mtbl tbody th a{color:inherit;text-decoration:none}
+.fg-mtbl td.n{color:#fff;font-weight:700}
+.fg-grid h3{font-size:13px;color:var(--ink-2);margin:20px 0 6px}
+.fg-grid div{display:flex;flex-wrap:wrap;gap:3px}
+.fg-sq{width:30px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;border-radius:4px;
+  background:var(--paper-4);color:var(--ink-3);text-decoration:none;font-variant-numeric:tabular-nums}
+.fg-sq.l1,.fg-sq.l2,.fg-sq.l3,.fg-sq.l4{color:#fff;font-weight:700}
+
+.fg-toast{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  background:var(--ink);color:var(--paper);border-radius:999px;padding:8px 18px;font-size:14px;transition:.25s;z-index:9}
+.fg-toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){.fg-hid.on{animation:none}.fg-toast{transition:none}}
